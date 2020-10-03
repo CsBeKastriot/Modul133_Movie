@@ -20,10 +20,11 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
     path('', views.home, name='home'),
-    path('accounts/signup/', views.signup, name='signup'),
+    path('admin/', admin.site.urls),
     path('movie', include('movie.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', views.signup, name='signup'),
     path('accounts/login/', views.login_view, name='login'),
+    path('accounts/logout', views.logout_view, name='logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,7 +1,13 @@
+from django.contrib import auth
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+"""
+Hier werden die Funktionen aufgelistet, die während des Renderings in der urls.py aufgerufen werden.
+ein solches beispiel ist die neuste seite  path('accounts/logout', views.logout_view, name='logout').
+Weiter unten ist besagte view erstellt worden und kann daher ebenfalls gerendered werden.
+"""
 
 def home(request):
     return render(request, 'home.html')
@@ -28,3 +34,7 @@ def login_view(request):
             login(request, user)
             return redirect('home')
     return render(request, 'registration/login.html')
+
+def logout_view(request):
+    auth.logout(request)
+    return render(request, 'registration/logout.html')

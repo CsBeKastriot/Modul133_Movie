@@ -1,24 +1,55 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block tab_title %}
     Home
 {% endblock %}
 
 {% block content %}
+    <!--The damn fucking css for the home site-->
+    {% comment %}<link rel="stylesheet" href="{% static 'css/homeBody.css' %}">{% endcomment %}
 
-    {% if user.is_authenticated %}
-        Hallo {{ user.username }}
+    <!-- Page Content -->
+    <div class="container">
+        <div class="card border-0 shadow my-5">
+            <div class="card-body p-5">
 
-        <div>
-            <p>
-                Dein Vorname: {{ user.first_name }}
-                <br>
-                Dein Nachname: {{ user.last_name | safe }}
-            </p>
+                {% if user.is_authenticated %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Movie</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Genre</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for author in authors %}
+                            <tr>
+                                <td>{{ author.first_name }}</td>
+                                <td>{{ author.last_name }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#imageModal-{{ author.id }}">
+                                        Show Image
+                                    </button>
+                                </td>
+                                <td>
+                                    <a href="{% url 'showAuthor' author.id%}" class="btn btn-info">Open</a>
+                                    <a href="{% url 'delteAuthor' author.id%}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                {% else %}
+                    <p class="lead mb-0">Du bist nicht authentifiziert.</p>
+                {% endif %}
+
+                <div style="height: 700px"></div>
+            </div>
         </div>
-
-    {% else %}
-        Du bist nicht authentifiziert.
-    {% endif %}
+    </div>
 
 {% endblock %}
