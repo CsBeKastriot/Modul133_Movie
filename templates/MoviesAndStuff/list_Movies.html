@@ -6,12 +6,26 @@
 
 {% block content %}
 
-     <!-- Button trigger modal -->
+    <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-top: 12px; margin-bottom: 12px" >
         Add Author
     </button>
 
-    <!-- Modal -->
+    <!-- Image-Modal -->
+    {% for movie in movieManager %}
+        <div id="imageModal-{{ movie.id }}" class="modal fade" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img src="{{ movie.image.url }}" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- other Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -48,31 +62,31 @@
 
 
     <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Movie</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Genre</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for movie in movies %}
-                            <tr>
-                                <td>{{ movie.movie_title }}</td>
-                                <td>{{ movie.movie_year }}</td>
-                                <td>{{ movie.movie_genre }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#imageModal-{{ movie.id }}">
-                                        Show Image
-                                    </button>
-                                </td>
-                                <td>
-                                    <a href="{% url 'showMovies' movie.id%}" class="btn btn-info">Open</a>
-                                    {% comment %}<a href="{% url 'delteAuthor' movie.id%}" class="btn btn-danger">Delete</a>{% endcomment %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+        <thead>
+        <tr>
+            <th scope="col">Movie</th>
+            <th scope="col">Year</th>
+            <th scope="col">Genre</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for movie in movieManager %}
+            <tr>
+                <td>{{ movie.movie_title }}</td>
+                <td>{{ movie.movie_year }}</td>
+                <td>{{ movie.movie_genre }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#imageModal-{{ movie.id }}">
+                        Show Image
+                    </button>
+                </td>
+                <td>
+                    <a href="{% url 'showMovies' movie.id%}" class="btn btn-info">Open</a>
+                    <a href="{% url 'delete_movie' movie.id%}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

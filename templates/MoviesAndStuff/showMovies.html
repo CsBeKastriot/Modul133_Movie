@@ -7,7 +7,7 @@
 {% block content %}
 
     <!-- Button to go back to the Author list Page-->
-    <td><a href="{% url 'home' %}" class="btn btn-info">Back</a></td>
+    <td><a href="{% url 'list_movies' %}" class="btn btn-info">Back</a></td>
 
     <!-- Modal -->
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -42,14 +42,35 @@
         <div class="row">
             <div class="col">
                 <ul class="list-unstyled">
-                    <li>Title: {{  movie.movie_title }}</li>
-                    <li>Year: {{ movie.movie_year }}</li>
-                    <li>Genre: {{ movie.movie_genre }}</li>
+                    <li>Title: {{  movieManager.movie_title }}</li>
+                    <li>Year: {{ movieManager.movie_year }}</li>
+                    <li>Genre: {{ movieManager.movie_genre }}</li>
                 </ul>
             </div>
             <div class="col">
-              <img src="{{ movie.image.url }}" class="img-fluid" alt="">
+              <img src="{{ movieManager.image.url }}" class="img-fluid" alt="">
             </div>
         </div>
+    </div>
+
+    <div class="container pb-cmnt-container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <textarea placeholder="Write your comment here!" class="pb-cmnt-textarea"></textarea>
+                    <form class="form-inline">
+                        <div class="btn-group">
+                            <button class="btn" type="button"><span class="fa fa-picture-o fa-lg"></span></button>
+                            <button class="btn" type="button"><span class="fa fa-video-camera fa-lg"></span></button>
+                            <button class="btn" type="button"><span class="fa fa-microphone fa-lg"></span></button>
+                            <button class="btn" type="button"><span class="fa fa-music fa-lg"></span></button>
+                        </div>
+                        <button class="btn btn-primary pull-right" type="button">Share</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 {% endblock %}
