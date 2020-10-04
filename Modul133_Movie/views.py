@@ -38,3 +38,6 @@ def login_view(request):
 def logout_view(request):
     auth.logout(request)
     return render(request, 'registration/logout.html')
+
+def movie_view(request):
+    return render(request, 'MoviesAndStuff/list_Movies.html')

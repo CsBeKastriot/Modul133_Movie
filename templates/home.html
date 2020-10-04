@@ -15,34 +15,7 @@
             <div class="card-body p-5">
 
                 {% if user.is_authenticated %}
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Movie</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Genre</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for author in authors %}
-                            <tr>
-                                <td>{{ author.first_name }}</td>
-                                <td>{{ author.last_name }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#imageModal-{{ author.id }}">
-                                        Show Image
-                                    </button>
-                                </td>
-                                <td>
-                                    <a href="{% url 'showAuthor' author.id%}" class="btn btn-info">Open</a>
-                                    <a href="{% url 'delteAuthor' author.id%}" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-
+                    <h3 class="text-center">Hello and welcome, cunt!</h3>
                 {% else %}
                     <p class="lead mb-0">Du bist nicht authentifiziert.</p>
                 {% endif %}

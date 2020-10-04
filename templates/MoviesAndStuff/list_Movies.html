@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block tab_title %}
+    Authors
+{% endblock %}
+
+{% block content %}
+
+     <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-top: 12px; margin-bottom: 12px" >
+        Add Author
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Author</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if form.errors %}
+        {% for error in form.errors %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Movie</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Genre</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for movie in movies %}
+                            <tr>
+                                <td>{{ movie.movie_title }}</td>
+                                <td>{{ movie.movie_year }}</td>
+                                <td>{{ movie.movie_genre }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#imageModal-{{ movie.id }}">
+                                        Show Image
+                                    </button>
+                                </td>
+                                <td>
+                                    <a href="{% url 'showMovies' movie.id%}" class="btn btn-info">Open</a>
+                                    {% comment %}<a href="{% url 'delteAuthor' movie.id%}" class="btn btn-danger">Delete</a>{% endcomment %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+{% endblock %}
