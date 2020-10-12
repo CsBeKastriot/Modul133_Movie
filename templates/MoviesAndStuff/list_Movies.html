@@ -5,88 +5,101 @@
 {% endblock %}
 
 {% block content %}
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-top: 12px; margin-bottom: 12px" >
-        Add Author
-    </button>
-
-    <!-- Image-Modal -->
-    {% for movie in movieManager %}
-        <div id="imageModal-{{ movie.id }}" class="modal fade" tabindex="-1" role="dialog"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <img src="{{ movie.image.url }}" class="img-fluid" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-
-    <!-- other Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+    <div class="container">
+        <div class="card border-0 shadow my-5">
+            <div class="card-body p-5">
+                {% if user.is_authenticated %}
+                    <!-- Button trigger other modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-top: 12px; margin-bottom: 12px" >
+                        Add Movie
                     </button>
-                </div>
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="modal-body">
-                        {{ form.as_p }}
+
+                    <!-- Image-Modal -->
+                    {% for movie in movieManager %}
+                        <div id="imageModal-{{ movie.id }}" class="modal fade" tabindex="-1" role="dialog"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <img src="{{ movie.image.url }}" class="img-fluid" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                    <!-- other Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel">Add Movie</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <p style="font-weight: bold">Note: Enter the Date in the following format:</p>
+                                        <p>YYYY-MM-DD</p>
+                                        {{ form.as_p }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Add Movie</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Author</button>
-                    </div>
-                </form>
+
+
+                    {% if form.errors %}
+                        {% for error in form.errors %}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Whatever you did, you did it wrong!</strong> Try again and pay attention to the fields!
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Movie</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Genre</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for movie in movieManager %}
+                            <tr>
+                                <td>{{ movie.movie_title }}</td>
+                                <td>{{ movie.movie_year }}</td>
+                                <td>{{ movie.movie_genre }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#imageModal-{{ movie.id }}">
+                                        Show Image
+                                    </button>
+                                </td>
+                                <td>
+                                    <a href="{% url 'showMovies' movie.id%}" class="btn btn-info">Open</a>
+                                    <a href="{% url 'delete_movie' movie.id%}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="lead mb-0">Du bist nicht authentifiziert.</p>
+                {% endif %}
             </div>
         </div>
     </div>
-
-    {% if form.errors %}
-        {% for error in form.errors %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        {% endfor %}
-    {% endif %}
-
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Movie</th>
-            <th scope="col">Year</th>
-            <th scope="col">Genre</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for movie in movieManager %}
-            <tr>
-                <td>{{ movie.movie_title }}</td>
-                <td>{{ movie.movie_year }}</td>
-                <td>{{ movie.movie_genre }}</td>
-                <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#imageModal-{{ movie.id }}">
-                        Show Image
-                    </button>
-                </td>
-                <td>
-                    <a href="{% url 'showMovies' movie.id%}" class="btn btn-info">Open</a>
-                    <a href="{% url 'delete_movie' movie.id%}" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 {% endblock %}

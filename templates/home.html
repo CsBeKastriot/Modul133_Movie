@@ -6,8 +6,6 @@
 {% endblock %}
 
 {% block content %}
-    <!--The damn fucking css for the home site-->
-    {% comment %}<link rel="stylesheet" href="{% static 'css/homeBody.css' %}">{% endcomment %}
 
     <!-- Page Content -->
     <div class="container">
@@ -15,7 +13,7 @@
             <div class="card-body p-5">
 
                 {% if user.is_authenticated %}
-                    <h3 class="text-center">Hello and welcome, cunt!</h3>
+                    <h3 class="text-center">Hello and welcome to MovieSite.local!</h3>
                 {% else %}
                     <p class="lead mb-0">Du bist nicht authentifiziert.</p>
                 {% endif %}
