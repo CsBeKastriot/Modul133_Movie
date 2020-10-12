@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/asyncio/__init__.py" charset="UTF-8" />
+    <file url="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/asyncio/base_events.py" charset="UTF-8" />
+    <file url="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/http/server.py" charset="ISO-8859-1" />
+    <file url="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/socket.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/templates/MoviesAndStuff/showMovies.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/venv/Lib/site-packages/django/utils/deprecation.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/venv/Lib/site-packages/django/utils/encoding.py" charset="UTF-8" />
+  </component>
+</project>

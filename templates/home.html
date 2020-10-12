@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block tab_title %}
+    Home
+{% endblock %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="card border-0 shadow my-5">
+            <div class="card-body p-5">
+
+                {% if user.is_authenticated %}
+                    <h3 class="text-center">Hello and welcome to MovieSite.local!</h3>
+                {% else %}
+                    <p class="lead mb-0">Du bist nicht authentifiziert.</p>
+                {% endif %}
+
+                <div style="height: 700px"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block tab_title %}
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- Button to go back to the Author list Page-->
+    <td><a href="{% url 'list_movies' %}" class="btn btn-info">Back</a></td>
+
+    <!-- Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Update Movie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update Movie</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">
+        Update
+    </button>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="list-unstyled">
+                    <li>Title: {{  movieManager.movie_title }}</li>
+                    <li>Year: {{ movieManager.movie_year }}</li>
+                    <li>Genre: {{ movieManager.movie_genre }}</li>
+                </ul>
+            </div>
+            <div class="col">
+              <img src="{{ movieManager.image.url }}" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+{% endblock %}
